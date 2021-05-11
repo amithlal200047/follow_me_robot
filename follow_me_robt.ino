@@ -25,6 +25,30 @@ void setup() {
 }
 
 void loop() {
-  
-
+  digitalWrite(trigpin,HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigpin,LOW);
+  long tim=pulseIn(ecopin,HIGH)/2;
+  long distance=tim*0.034;
+  if(distance<50){
+    if(ir_left==HIGH){
+        digitalWrite(motorleft_c,HIGH);
+        digitalWrite(motorright_a,HIGH);
+      }
+    else if(ir_right==HIGH){
+        digitalWrite(motorleft_a,HIGH);
+        digitalWrite(motorright_c,HIGH);
+      }
+    else if(ir_left==HIGH){
+        digitalWrite(motorleft_a,HIGH);
+        digitalWrite(motorright_a,HIGH);
+      }
+      
+  }
+  else{
+    digitalWrite(motorleft_c,LOW);
+    digitalWrite(motorleft_a,LOW);
+    digitalWrite(motorright_c,LOW);
+    digitalWrite(motorright_a,LOW);
+  }
 }
