@@ -30,19 +30,30 @@ void loop() {
   digitalWrite(trigpin,LOW);
   long tim=pulseIn(ecopin,HIGH)/2;
   long distance=tim*0.034;
-  if(distance<50){
-    if(ir_left==HIGH){
+  Serial.println(distance);
+  if(distance<20){
+    if(digitalRead(ir_left)==HIGH && digitalRead(ir_right)==LOW){
         digitalWrite(motorleft_c,HIGH);
         digitalWrite(motorright_a,HIGH);
+        digitalWrite(motorleft_a,LOW);
+        digitalWrite(motorright_c,LOW);
+        Serial.println("Left");
       }
-    else if(ir_right==HIGH){
+    else if(digitalRead(ir_right)==HIGH && digitalRead(ir_left)==LOW){
         digitalWrite(motorleft_a,HIGH);
         digitalWrite(motorright_c,HIGH);
+        digitalWrite(motorleft_c,LOW);
+        digitalWrite(motorright_a,LOW);
+        Serial.println("Right");
       }
-    else if(ir_left==HIGH){
+    else{
         digitalWrite(motorleft_a,HIGH);
         digitalWrite(motorright_a,HIGH);
+        digitalWrite(motorleft_c,LOW);
+        digitalWrite(motorright_c,LOW);
+        Serial.println("Forward");
       }
+      
       
   }
   else{
@@ -50,5 +61,6 @@ void loop() {
     digitalWrite(motorleft_a,LOW);
     digitalWrite(motorright_c,LOW);
     digitalWrite(motorright_a,LOW);
+    Serial.println("Stopped");
   }
 }
